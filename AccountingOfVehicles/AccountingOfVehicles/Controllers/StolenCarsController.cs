@@ -29,23 +29,6 @@ namespace AccountingOfVehicles.Controllers
             List<BrandNameFilter> brandNames = _db.Brands.Select(b => new BrandNameFilter { BrandName = b.BrandName, Id = b.BrandID }).ToList();
             brandNames.Insert(0, new BrandNameFilter { BrandName = "Все", Id = 0 });
 
-            //List<StolenCar> stolenCars = _db.StolenCars
-            //    .Select(t => new StolenCar
-            //    {
-            //        StolenCarID = t.StolenCarID,
-            //        CarID = t.CarID,
-            //        EmployeeID = t.EmployeeID,
-            //        StolenCarStealingDate = t.StolenCarStealingDate,
-            //        StolenCarStatementDate = t.StolenCarStatementDate,
-            //        StolenCarInsuranceType = t.StolenCarInsuranceType,
-            //        StolenCarCondition = t.StolenCarCondition,
-            //        StolenCarFind = t.StolenCarFind,
-            //        StolenCarFindDate = t.StolenCarFindDate,
-            //        Car = t.Car,
-            //        Employee = t.Employee
-            //    }).OrderBy(s => s.StolenCarID)
-            //    .ToList();
-
 
             List<StolenCar> stolenCars = _db.StolenCars.Join(_db.Cars.Select(t => new Car
             {

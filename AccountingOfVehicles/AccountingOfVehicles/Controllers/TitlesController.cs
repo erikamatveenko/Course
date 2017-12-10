@@ -34,7 +34,7 @@ namespace AccountingOfVehicles.Controllers
             TitleAllowanceFilter taf = titleAllowances.Where(c => c.Id == currTitleID).ToList()[0];
             if (currTitleID > 0)
             {
-                titles = titles.Where(c => c.TitleID == currTitleID).ToList();
+                titles = titles.Where(c => c.TitleAllowance.ToString() == taf.TitleAllowance).ToList();
             }
 
             PageViewModel pageViewModel = new PageViewModel(titles.Count, page, pageSize, currTitleID);
