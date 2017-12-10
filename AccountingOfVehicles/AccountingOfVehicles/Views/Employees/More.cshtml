@@ -1,0 +1,44 @@
+﻿@model AccountingOfVehicles.Models.Employee
+@{
+    ViewData["Title"] = "Сотрудник ГАИ";
+   
+}
+<style type="text/css">
+    td {
+        padding-right:20px;
+    }
+    .boldTd{
+        font-weight:bold;
+    }
+</style>
+
+
+<h2>Подробности</h2>
+<div>
+    <h4>Сотрудник ГАИ</h4>
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeID)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.Title.TitleName)</td>
+            <td> @Html.DisplayFor(employee => employee.Title.TitleName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeName)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeBirthDate)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeBirthDate) </td>
+        </tr>
+
+    </table>
+    
+
+</div>
+
+<div>
+    <a asp-action="Employees" class="btn btn-sm btn-primary">Вернуться</a>
+</div>

@@ -1,0 +1,74 @@
+﻿@model AccountingOfVehicles.Models.TitleViewModel
+@addTagHelper "AccountingOfVehicles.TagHelpers.PageLinkTagHelper, AccountingOfVehicles"
+@{
+    ViewData["Title"] = "Звания сотрудников ГАИ";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<style type="text/css">
+    th, td {
+        padding-right: 15px;
+    }
+</style>
+
+<br />
+@if (SignInManager.IsSignedIn(User))
+{
+<form class="form-inline" method="get">
+    <label>Выберите наименование звания:</label>
+    <select name="currentParameterID" class="form-control">
+        @foreach (TitleAllowanceFilter taf in Model.TitleAllowances)
+            {
+                if (taf.Id == Model.CurrentTitleAllowance.Id)
+                {
+    <option selected value="@taf.Id">@taf.TitleAllowance</option>
+                }
+                else
+                {
+    <option value="@taf.Id">@taf.TitleAllowance</option>}
+            }
+    </select>
+    <input type="submit" value="Показать" class="btn btn-default" />
+</form>
+}
+
+<table style="margin:20px;">
+    <caption>Звания сотрудников ГАИ</caption>
+
+    <tr>
+        <th>Код звания сотрудника</th>
+        <th>Наименование</th>
+        <th>Надбавка</th>
+        <th>Обязанности</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var title in Model.Titles)
+    {
+    <tr>
+        <td>@title.TitleID</td>
+        <td>@title.TitleName</td>
+        <td>@title.TitleAllowance</td>
+        <td style="padding-right:25px">@title.TitleCharge</td>
+        @if (SignInManager.IsSignedIn(User))
+            {
+        <td style="padding-right:10px"><a href="~/Titles/Edit/@title.TitleID">Изменить</a></td>
+        <td style="padding-right:10px"><a href="~/Titles/Delete/@title.TitleID">Удалить</a></td>
+        <td style="padding-right:10px"><a href="~/Titles/More/@title.TitleID">Подробнее</a></td>
+            }
+    </tr>
+    }
+
+    <tr>
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <td style="padding:10px; padding-left:30px"><a asp-action="Create" class="btn btn-primary">Добавить</a></td>
+        }
+    </tr>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Titles"></page-link>
+

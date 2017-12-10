@@ -1,0 +1,64 @@
+﻿@model AccountingOfVehicles.Models.StolenCar
+@{
+    ViewData["Title"] = "Автомобиль в угоне";
+   
+}
+<style type="text/css">
+    td {
+        padding-right:20px;
+    }
+    .boldTd{
+        font-weight:bold;
+    }
+</style>
+
+
+<h2>Подробности</h2>
+<div>
+    <h4>Автомобиль в угоне</h4>
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarID)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.Car.CarRegistrationNumber)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.Car.CarRegistrationNumber) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.Employee.EmployeeName)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.Employee.EmployeeName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarStealingDate)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarStealingDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarStatementDate)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarStatementDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarInsuranceType)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarInsuranceType) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarCondition)</tdv>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarCondition) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarFind)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarFind) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(stolenCar => stolenCar.StolenCarFindDate)</td>
+            <td> @Html.DisplayFor(stolenCar => stolenCar.StolenCarFindDate) </td>
+        </tr>
+
+    </table>
+    
+
+</div>
+
+<div>
+    <a asp-action="StolenCars" class="btn btn-sm btn-primary">Вернуться</a>
+</div>

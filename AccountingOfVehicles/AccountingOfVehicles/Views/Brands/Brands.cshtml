@@ -1,0 +1,61 @@
+﻿@model AccountingOfVehicles.Models.BrandViewModel
+@addTagHelper "AccountingOfVehicles.TagHelpers.PageLinkTagHelper, AccountingOfVehicles"
+@{
+    ViewData["Title"] = "Марки автомобилей";
+}
+<style type="text/css">
+    th, td {
+        padding-right: 15px;
+    }
+</style>
+
+<br />
+<form class="form-inline" method="get">
+    <label>Выберите страну-производителя:</label>
+    <select name="currentParameterID" class="form-control">
+        @foreach (BrandCountryFilter br in Model.BrandCountries)
+        {
+            if (br.Id == Model.CurrentBrandCountry.Id)
+            {
+                <option selected value="@br.Id">@br.BrandCountry</option>
+            }
+            else
+            {
+                <option value="@br.Id">@br.BrandCountry</option>}
+        }
+    </select>
+    <input type="submit" value="Показать" class="btn btn-default" />
+</form>
+
+<table style="margin:20px;">
+    <caption>Марки автомобилей</caption>
+    <tr>
+        <th>Код марки автомобиля</th>
+        <th>Наименование</th>
+        <th>Фирма-производитель</th>
+        <th>Страна-производитель</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var brand in Model.Brands)
+            {
+        <tr>
+            <td>@brand.BrandID</td>
+            <td>@brand.BrandName</td>
+            <td>@brand.BrandCompany</td>
+            <td style="padding-right:25px">@brand.BrandCountry</td>
+            <td style="padding-right:10px"><a href="~/Brands/Edit/@brand.BrandID">Изменить</a></td>
+            <td style="padding-right:10px"><a href="~/Brands/Delete/@brand.BrandID">Удалить</a></td>
+            <td style="padding-right:10px"><a href="~/Brands/More/@brand.BrandID">Подробнее</a></td>
+        </tr>
+    }
+
+    <tr>
+        <td style="padding:10px; padding-left:30px"><a asp-action="Create" class="btn btn-primary">Добавить</a></td>
+    </tr>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Brands"></page-link>
+
+

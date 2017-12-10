@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Ошибка";
+}
+
+<h1 class="text-danger">Ошибка.</h1>
+<h2 class="text-danger">Ошибка возникла в процессе отправки запроса.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>ID запроса:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Режим разработчика</h3>
+<p>
+    В области <strong> Разработка </strong> будет отображаться более подробная информация об ошибке.
+</p>

@@ -1,0 +1,66 @@
+﻿@model AccountingOfVehicles.Models.Brand
+@{
+    ViewData["Title"] = "Марка автомобиля";
+
+}
+<style type="text/css">
+    td {
+        padding-right: 20px;
+    }
+
+    .boldTd {
+        font-weight: bold;
+    }
+</style>
+
+
+
+<h2>Подробности</h2>
+<div>
+    <h4>Марка автомобиля</h4>
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandID)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandName)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandCompany)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandCompany) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandCountry)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandCountry) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandStartDate)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandStartDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandEndingDate)</tdv>
+            <td> @Html.DisplayFor(brand => brand.BrandEndingDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandCharacteristic)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandCharacteristic) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandCategory)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandCategory) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(brand => brand.BrandDescription)</td>
+            <td> @Html.DisplayFor(brand => brand.BrandDescription) </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+<div>
+    <a asp-action="Brands" class="btn btn-sm btn-primary">Вернуться</a>
+</div>

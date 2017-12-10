@@ -1,0 +1,47 @@
+﻿@model AccountingOfVehicles.Models.Title
+@{
+    ViewData["Title"] = "Звание сотрудника ГАИ";
+   
+}
+<style type="text/css">
+    td {
+        padding-right:20px;
+    }
+    .boldTd{
+        font-weight:bold;
+    }
+</style>
+
+
+<h2>Подробности</h2>
+<div>
+    <h4>Звание сотрудника ГАИ</h4>
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(title => title.TitleID)</td>
+            <td> @Html.DisplayFor(title => title.TitleID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(title => title.TitleName)</td>
+            <td> @Html.DisplayFor(title => title.TitleName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(title => title.TitleAllowance)</td>
+            <td> @Html.DisplayFor(title => title.TitleAllowance) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(title => title.TitleCharge)</td>
+            <td> @Html.DisplayFor(title => title.TitleCharge) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(title => title.TitleRequirement)</td>
+            <td> @Html.DisplayFor(title => title.TitleRequirement) </td>
+        </tr>
+
+    </table>
+    
+</div>
+
+<div>
+    <a asp-action="Titles" class="btn btn-sm btn-primary">Вернуться</a>
+</div>

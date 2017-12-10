@@ -1,0 +1,50 @@
+﻿@model AccountingOfVehicles.Models.ManageViewModels.TwoFactorAuthenticationViewModel
+@{
+    ViewData["Title"] = "Двухфакторная аутентификация";
+    ViewData.AddActivePage(ManageNavPages.TwoFactorAuthentication);
+}
+
+<h4>@ViewData["Title"]</h4>
+@if (Model.Is2faEnabled)
+{
+
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>You have no recovery codes left.</strong>
+            <p>Вы должны <a asp-action="GenerateRecoveryCodes"> создать новый набор кодов восстановления </a>, прежде чем вы сможете войти в систему с кодом восстановления.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>У вас остался 1 код восстановления.</strong>
+            <p>Вы можете <a asp-action="GenerateRecoveryCodes"> создать новый набор кодов восстановления</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>У вас остались коды восстановления @Model.RecoveryCodesLeft. </Strong>
+             <p> Вы должны <a asp-action="GenerateRecoveryCodes"> создать новый набор кодов восстановления</a>. </p>
+        </div>
+    }
+
+    <a asp-action="Disable2faWarning" class="btn btn-default">Отключить 2FA</a>
+    <a asp-action="GenerateRecoveryCodes" class="btn btn-default">Сбросить коды восстановления</a>
+}
+
+<h5>Приложение для аутентификации</h5>
+@if (!Model.HasAuthenticator)
+{
+    <a asp-action="EnableAuthenticator" class="btn btn-default">Добавить приложение для аутентификации</a>
+}
+else
+{
+    <a asp-action="EnableAuthenticator" class="btn btn-default">Настроить приложение для аутентификации</a>
+    <a asp-action="ResetAuthenticatorWarning" class="btn btn-default">Сбросить ключ аутентификатора</a>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

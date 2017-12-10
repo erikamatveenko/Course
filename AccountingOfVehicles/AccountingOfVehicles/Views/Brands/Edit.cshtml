@@ -1,0 +1,100 @@
+﻿@model AccountingOfVehicles.Models.Brand
+@{
+    ViewData["Title"] = "Марка автомобиля";
+}
+
+<h2>Редактирование</h2>
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Марка автомобиля</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="BrandID" />
+
+
+        <div class="form-group">
+            <label asp-for="BrandName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandName" class="form-control" />
+                <span asp-validation-for="BrandName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandCompany" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandCompany" class="form-control" />
+                <span asp-validation-for="BrandCompany" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandCountry" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandCountry" class="form-control" />
+                <span asp-validation-for="BrandCountry" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandStartDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandStartDate" class="form-control" />
+                <span asp-validation-for="BrandStartDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandEndingDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandEndingDate" class="form-control" />
+                <span asp-validation-for="BrandEndingDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandCharacteristic" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandCharacteristic" class="form-control" />
+                <span asp-validation-for="BrandCharacteristic" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandCategory" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandCategory" class="form-control" />
+                <span asp-validation-for="BrandCategory" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BrandDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="BrandDescription" class="form-control" />
+                <span asp-validation-for="BrandDescription" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Brands" class="btn btn-sm btn-primary">Вернуться</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#BrandStartDate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#BrandEndingDate").datepicker({ dateFormat: "dd/mm/yy" });
+        });
+    </script>
+}

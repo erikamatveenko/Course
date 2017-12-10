@@ -1,0 +1,48 @@
+﻿@model AccountingOfVehicles.Models.Employee
+@{
+    ViewData["Title"] = "Сотрудник ГАИ";
+
+}
+<style type="text/css">
+    td {
+        padding-right: 20px;
+    }
+
+    .boldTd {
+        font-weight: bold;
+    }
+</style>
+
+<h2>Удалить</h2>
+<h3>Вы действительно хотите удалить это?</h3>
+<div>
+    <h4>Сотрудник ГАИ</h4>
+    <hr />
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeID)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.Title.TitleName)</td>
+            <td> @Html.DisplayFor(employee => employee.Title.TitleName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeName)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(employee => employee.EmployeeBirthDate)</td>
+            <td> @Html.DisplayFor(employee => employee.EmployeeBirthDate) </td>
+        </tr>
+
+    </table>
+
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="hidden" asp-for="EmployeeID" />
+            <input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
+            <a asp-action="Employees" class="btn btn-sm btn-primary">Вернуться</a>
+        </div>
+    </form>
+</div>

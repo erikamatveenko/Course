@@ -1,0 +1,74 @@
+﻿@model AccountingOfVehicles.Models.CarViewModel
+@addTagHelper "AccountingOfVehicles.TagHelpers.PageLinkTagHelper, AccountingOfVehicles"
+@{
+    ViewData["Title"] = "Автомобили";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<style type="text/css">
+    th, td {
+        padding-right: 15px;
+    }
+</style>
+
+<br />
+@if (SignInManager.IsSignedIn(User))
+{
+    <form class="form-inline" method="get">
+        <label>Выберите марку автомобиля:</label>
+        <select name="currentParameterID" class="form-control">
+            @foreach (BrandNameFilter br in Model.BrandNames)
+            {
+                if (br.Id == Model.CurrentBrandName.Id)
+                {
+                    <option selected value="@br.Id">@br.BrandName</option>
+                }
+                else
+                {
+                    <option value="@br.Id">@br.BrandName</option>}
+            }
+        </select>
+        <input type="submit" value="Показать" class="btn btn-default" />
+    </form>
+}
+
+<table style="margin:20px;">
+    <caption>Автомобили</caption>
+
+    <tr>
+        <th>Код автомобиля</th>
+        <th>Наименование марки автомобиля</th>
+        <th>Владелец</th>
+        <th>Регистрационный номер</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var car in Model.Cars)
+    {
+        <tr>
+            <td>@car.CarID</td>
+            <td>@car.Brand.BrandName</td>
+            <td>@car.Owner.OwnerName</td>
+            <td style="padding-right:25px">@car.CarRegistrationNumber</td>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <td style="padding-right:10px"><a href="~/Cars/Edit/@car.CarID">Изменить</a></td>
+                <td style="padding-right:10px"><a href="~/Cars/Delete/@car.CarID">Удалить</a></td>
+                <td style="padding-right:10px"><a href="~/Cars/More/@car.CarID">Подробнее</a></td>
+            }
+        </tr>
+    }
+
+    <tr>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <td style="padding:10px; padding-left:30px"><a asp-action="Create" class="btn btn-primary">Добавить</a></td>
+        }
+    </tr>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Cars"></page-link>
+

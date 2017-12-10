@@ -1,0 +1,132 @@
+﻿@model AccountingOfVehicles.Models.Car
+@{
+    ViewData["Title"] = "Автомобиль";
+}
+
+<h2>Редактирование</h2>
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Автомобиль</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="CarID" />
+       
+        <div class="form-group">
+            <label asp-for="Brand.BrandName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID"></select>
+                <span asp-validation-for="BrandID" class="text-danger"></span>
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label asp-for="Owner.OwnerName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="OwnerID" class="form-control" asp-items="ViewBag.OwnerID"></select>
+                <span asp-validation-for="OwnerID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarRegistrationNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarRegistrationNumber" class="form-control" />
+                <span asp-validation-for="CarRegistrationNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarPhoto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarPhoto" class="form-control" />
+                <span asp-validation-for="CarPhoto" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarNumberOfBody" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarNumberOfBody" class="form-control" />
+                <span asp-validation-for="CarNumberOfBody" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarNumberOfMotor" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarNumberOfMotor" class="form-control" />
+                <span asp-validation-for="CarNumberOfMotor" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarNumberOfPassport" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarNumberOfPassport" class="form-control" />
+                <span asp-validation-for="CarNumberOfPassport" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarReleaseDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarReleaseDate" class="form-control" />
+                <span asp-validation-for="CarReleaseDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarRegistrationDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarRegistrationDate" class="form-control" />
+                <span asp-validation-for="CarRegistrationDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarLastCheckupDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarLastCheckupDate" class="form-control" />
+                <span asp-validation-for="CarLastCheckupDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarColor" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarColor" class="form-control" />
+                <span asp-validation-for="CarColor" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CarDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CarDescription" class="form-control" />
+                <span asp-validation-for="CarDescription" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Cars" class="btn btn-sm btn-primary">Вернуться</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#CarReleaseDate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#CarRegistrationDate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#CarLastCheckupDate").datepicker({ dateFormat: "dd/mm/yy" });
+        });
+    </script>
+}

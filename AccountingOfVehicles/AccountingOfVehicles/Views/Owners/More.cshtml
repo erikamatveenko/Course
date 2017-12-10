@@ -1,0 +1,68 @@
+﻿@model AccountingOfVehicles.Models.Owner
+@{
+    ViewData["Title"] = "Владелец";
+
+}
+<style type="text/css">
+    td {
+        padding-right: 20px;
+    }
+
+    .boldTd {
+        font-weight: bold;
+    }
+</style>
+
+
+
+<h2>Подробности</h2>
+<div>
+    <h4>Владелец</h4>
+    <table style="margin:20px;">
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerID)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerID) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerName)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerName) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerBirthDate)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerBirthDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerAddress)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerAddress) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerPassport)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerPassport) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerNumberOfDriverLicense)</tdv>
+            <td> @Html.DisplayFor(owner => owner.OwnerNumberOfDriverLicense) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerLicenseDeliveryDate)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerLicenseDeliveryDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerLicenseValidityDate)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerLicenseValidityDate) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerCategory)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerCategory) </td>
+        </tr>
+        <tr>
+            <td class="boldTd"> @Html.DisplayNameFor(owner => owner.OwnerMoreInformation)</td>
+            <td> @Html.DisplayFor(owner => owner.OwnerMoreInformation) </td>
+        </tr>
+
+    </table>
+</div>
+
+<div>
+    <a asp-action="Owners" class="btn btn-sm btn-primary">Вернуться</a>
+</div>

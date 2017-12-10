@@ -1,0 +1,99 @@
+﻿@model AccountingOfVehicles.Models.StolenCar
+@{
+    ViewData["Title"] = "Автомобиль в угоне";
+
+}
+<h2>Создать</h2>
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Автомобиль в угоне</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Car.CarRegistrationNumber" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="CarID" class="form-control" asp-items="ViewBag.CarID"></select>
+                <span asp-validation-for="CarID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employee.EmployeeName" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
+                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarStealingDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarStealingDate" class="form-control" />
+                <span asp-validation-for="StolenCarStealingDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarStatementDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarStatementDate" class="form-control" />
+                <span asp-validation-for="StolenCarStatementDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarInsuranceType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarInsuranceType" class="form-control" />
+                <span asp-validation-for="StolenCarInsuranceType" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarCondition" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarCondition" class="form-control" />
+                <span asp-validation-for="StolenCarCondition" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarFind" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarFind" class="form-control" />
+                <span asp-validation-for="StolenCarFind" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StolenCarFindDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StolenCarFindDate" class="form-control" />
+                <span asp-validation-for="StolenCarFindDate" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Добавить" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="StolenCars" class="btn btn-sm btn-primary">Вернуться</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#StolenCarStealingDate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#StolenCarStatementDate").datepicker({ dateFormat: "dd/mm/yy" });
+            $("#StolenCarFindDate").datepicker({ dateFormat: "dd/mm/yy" });
+        });
+    </script>
+}
