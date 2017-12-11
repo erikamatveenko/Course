@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -72,7 +73,7 @@ namespace AccountingOfVehicles.Controllers
                 stolenCars = stolenCars.Where(c => c.Car.BrandID == currBrandID).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(stolenCars.Count, page, pageSize, currBrandID);
+            PageViewModel pageViewModel = new PageViewModel(stolenCars.Count, page, pageSize, new CarsFilter());
 
             StolenCarViewModel stolenCarViewModel = new StolenCarViewModel { PageViewModel = pageViewModel, StolenCars = stolenCars.Skip((page - 1) * pageSize).Take(pageSize).ToList(), BrandNames = brandNames, CurrentBrandName = brnf };
             return View(stolenCarViewModel);

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -21,14 +22,16 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult Cars(int? currentParameterID, int page = 1)
+        public IActionResult Cars( string brandName = "Все", string ownerName = "Все", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currBrandID = currentParameterID ?? 0;
 
-            List<BrandNameFilter> brandNames = _db.Brands.Select(b => new BrandNameFilter { BrandName = b.BrandName, Id = b.BrandID }).ToList();
-            brandNames.Insert(0, new BrandNameFilter { BrandName = "Все", Id = 0 });
-      
+            List<String> brandNames = _db.Brands.Select(b => b.BrandName).ToList();
+            brandNames.Insert(0, "Все");
+
+            List<String> ownerNames = _db.Owners.Select(b => b.OwnerName).ToList();
+            ownerNames.Insert(0, "Все");
+
             List<Car> cars = _db.Cars
                 .Select(t => new Car
                 {
@@ -49,15 +52,21 @@ namespace AccountingOfVehicles.Controllers
                     Owner = t.Owner
                 }).OrderBy(s => s.CarID)
                 .ToList();
-            BrandNameFilter brnf  = brandNames.Where(c => c.Id == currBrandID).ToList()[0];
-            if (currBrandID > 0)
+
+            if (brandName != "Все" && brandName !=null)
             {
-                cars = cars.Where(c => c.Brand.BrandID == currBrandID).ToList();             
+                cars = cars.Where(c => c.Brand.BrandName == brandName).ToList();             
             }
+            if (ownerName != "Все" && ownerName != null)
+            {
+                cars = cars.Where(c => c.Owner.OwnerName == ownerName).ToList();
+            }
+            CarsFilter carsFilter = new CarsFilter { brandName = brandName, ownerName = ownerName, BrandNames = brandNames, OwnerNames = ownerNames };
+            PageViewModel pageViewModel = new PageViewModel(cars.Count, pageNumber, pageSize, carsFilter );
 
-            PageViewModel pageViewModel = new PageViewModel(cars.Count, page, pageSize, currBrandID);
-
-            CarViewModel carViewModel = new CarViewModel {PageViewModel=pageViewModel, Cars = cars.Skip((page - 1) * pageSize).Take(pageSize).ToList(), BrandNames=brandNames ,CurrentBrandName = brnf };
+            CarViewModel carViewModel = new CarViewModel {PageViewModel=pageViewModel,
+                Cars = cars.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(),
+               CarsFilters = carsFilter };
             return View(carViewModel);
         }
 

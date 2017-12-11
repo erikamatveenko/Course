@@ -15,22 +15,37 @@
 <br />
 @if (SignInManager.IsSignedIn(User))
 {
-    <form class="form-inline" method="get">
-        <label>Выберите марку автомобиля:</label>
-        <select name="currentParameterID" class="form-control">
-            @foreach (BrandNameFilter br in Model.BrandNames)
+<form class="form-inline" method="get">
+    <label>Выберите марку автомобиля:</label>
+    <select name="brandName" class="form-control">
+        @foreach (String br in Model.CarsFilters.BrandNames)
+        {
+            if (br == Model.CarsFilters.brandName)
             {
-                if (br.Id == Model.CurrentBrandName.Id)
-                {
-                    <option selected value="@br.Id">@br.BrandName</option>
-                }
-                else
-                {
-                    <option value="@br.Id">@br.BrandName</option>}
+                <option selected value="@br">@br</option>
             }
-        </select>
-        <input type="submit" value="Показать" class="btn btn-default" />
-    </form>
+            else
+            {
+                <option value="@br">@br</option>}
+        }
+    </select>
+
+    <select name="ownerName" class="form-control">
+        @foreach (String br in Model.CarsFilters.OwnerNames)
+        {
+            if (br == Model.CarsFilters.ownerName)
+            {
+                <option selected value="@br">@br</option>
+            }
+            else
+            {
+                <option value="@br">@br</option>}
+        }
+    </select>
+    <input type="submit" value="Показать" class="btn btn-default" />
+</form>
+
+
 }
 
 <table style="margin:20px;">

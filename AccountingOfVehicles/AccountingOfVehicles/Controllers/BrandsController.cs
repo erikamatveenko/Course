@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -21,24 +22,24 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
             
-        public IActionResult Brands(int? currentParameterID, int page = 1)
+        public IActionResult Brands(string brandCountry = "Все", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currBrandID = currentParameterID ?? 0;
 
-            List<BrandCountryFilter> brandCountries = _db.Brands.Select(b => new BrandCountryFilter { BrandCountry = b.BrandCountry, Id = b.BrandID }).ToList();
-            brandCountries.Insert(0, new BrandCountryFilter { BrandCountry = "Все", Id = 0 });
+            List<String> brandCountries = _db.Brands.Select(b => b.BrandCountry).ToList();
+            brandCountries.Insert(0, "Все");
 
             var brands = _db.Brands.OrderBy(s => s.BrandID).ToList();
-            BrandCountryFilter brcf = brandCountries.Where(c => c.Id == currBrandID).ToList()[0];
-            if (currBrandID > 0)
+            if (brandCountry != "Все" && brandCountry != null)
             {
-                brands = brands.Where(c => c.BrandCountry == brcf.BrandCountry).ToList();
+                brands = brands.Where(c => c.BrandCountry == brandCountry).ToList();
             }
+            BrandsFilter brandsFilter = new BrandsFilter {brandCountry =  brandCountry, BrandCounties = brandCountries };
 
-            PageViewModel pageViewModel = new PageViewModel(brands.Count, page, pageSize, currBrandID);
 
-            BrandViewModel brandViewModel = new BrandViewModel { PageViewModel = pageViewModel, Brands = brands.Skip((page - 1) * pageSize).Take(pageSize).ToList(), BrandCountries = brandCountries, CurrentBrandCountry = brcf };
+            PageViewModel pageViewModel = new PageViewModel(brands.Count, pageNumber, pageSize, brandsFilter);
+
+            BrandViewModel brandViewModel = new BrandViewModel { PageViewModel = pageViewModel, Brands = brands.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(),BrandsFilters= brandsFilter };
             return View(brandViewModel);
         }
 

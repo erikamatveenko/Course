@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -37,7 +38,7 @@ namespace AccountingOfVehicles.Controllers
                 owners = owners.Where(c => c.OwnerBirthDate == obdf.OwnerBirthDate).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(owners.Count, page, pageSize, currOwnerID);
+            PageViewModel pageViewModel = new PageViewModel(owners.Count, page, pageSize, new CarsFilter());
 
             OwnerViewModel ownerViewModel = new OwnerViewModel { PageViewModel = pageViewModel, Owners = owners.Skip((page - 1) * pageSize).Take(pageSize).ToList(), OwnerBirthDates = ownerBirthDates, CurrentOwnerBirthDate = obdf };
             return View(ownerViewModel);

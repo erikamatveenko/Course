@@ -1,4 +1,5 @@
 ﻿using AccountingOfVehicles.Models;
+using AccountingOfVehicles.Models.Filters;
 using AccountingOfVehicles.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -13,9 +14,7 @@ namespace AccountingOfVehicles.Models
         public IEnumerable<Car> Cars { get; set; }
         //Свойство для навигации по страницам
         public PageViewModel PageViewModel { get; set; }
-        
-        public IEnumerable<BrandNameFilter> BrandNames { get; set; }
 
-        public BrandNameFilter CurrentBrandName { get; set; }
+        public CarsFilter CarsFilters { get; set; }
     }
 }

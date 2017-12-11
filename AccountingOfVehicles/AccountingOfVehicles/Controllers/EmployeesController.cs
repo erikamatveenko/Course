@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -42,10 +43,10 @@ namespace AccountingOfVehicles.Controllers
             TitleNameFilter tnf = titleNames.Where(c => c.Id == currTitleID).ToList()[0];
             if (currTitleID > 0)
             {
-                employees = employees.Where(c => c.Title.TitleID == currTitleID).ToList();
+                employees = employees.Where(c => c.Title.TitleName == tnf.TitleName).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(employees.Count, page, pageSize, currTitleID);
+            PageViewModel pageViewModel = new PageViewModel(employees.Count, page, pageSize, new CarsFilter());
 
             EmployeeViewModel employeeViewModel = new EmployeeViewModel { PageViewModel = pageViewModel, Employees = employees.Skip((page - 1) * pageSize).Take(pageSize).ToList(), TitleNames = titleNames, CurrentTitleName = tnf };
             return View(employeeViewModel);

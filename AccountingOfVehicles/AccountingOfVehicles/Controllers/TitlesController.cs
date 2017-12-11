@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
+using AccountingOfVehicles.Models.Filters;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -37,7 +38,7 @@ namespace AccountingOfVehicles.Controllers
                 titles = titles.Where(c => c.TitleAllowance.ToString() == taf.TitleAllowance).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(titles.Count, page, pageSize, currTitleID);
+            PageViewModel pageViewModel = new PageViewModel(titles.Count, page, pageSize, new CarsFilter());
 
             TitleViewModel titleViewModel = new TitleViewModel { PageViewModel = pageViewModel, Titles = titles.Skip((page - 1) * pageSize).Take(pageSize).ToList(), TitleAllowances = titleAllowances, CurrentTitleAllowance = taf };
             return View(titleViewModel);

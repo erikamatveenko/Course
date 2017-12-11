@@ -12,17 +12,17 @@
 <br />
 <form class="form-inline" method="get">
     <label>Выберите страну-производителя:</label>
-    <select name="currentParameterID" class="form-control">
-        @foreach (BrandCountryFilter br in Model.BrandCountries)
+    <select name="brandCountry" class="form-control">
+        @foreach (String br in Model.BrandsFilters.BrandCounties)
+    {
+        if (br == Model.BrandsFilters.brandCountry)
         {
-            if (br.Id == Model.CurrentBrandCountry.Id)
-            {
-                <option selected value="@br.Id">@br.BrandCountry</option>
-            }
-            else
-            {
-                <option value="@br.Id">@br.BrandCountry</option>}
-        }
+            <option selected value="@br">@br</option>
+    }
+    else
+    {
+        <option value="@br">@br</option>}
+}
     </select>
     <input type="submit" value="Показать" class="btn btn-default" />
 </form>

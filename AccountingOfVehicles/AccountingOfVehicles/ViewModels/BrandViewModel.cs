@@ -1,4 +1,5 @@
 ﻿using AccountingOfVehicles.Models;
+using AccountingOfVehicles.Models.Filters;
 using AccountingOfVehicles.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,6 @@ namespace AccountingOfVehicles.Models
         //Свойство для навигации по страницам
         public PageViewModel PageViewModel { get; set; }
 
-        public IEnumerable<BrandCountryFilter> BrandCountries { get; set; }
-
-        public BrandCountryFilter CurrentBrandCountry { get; set; }
+        public BrandsFilter BrandsFilters { get; set; }
     }
 }

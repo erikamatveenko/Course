@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Mvc;
 using AccountingOfVehicles.ViewModels;
+using AccountingOfVehicles.Utils;
 
 namespace AccountingOfVehicles.TagHelpers
 {
@@ -30,12 +31,12 @@ namespace AccountingOfVehicles.TagHelpers
             tag.AddCssClass("pagination");
 
             // формируем три ссылки - на текущую, предыдущую и следующую
-            TagBuilder currentItem = CreateTag(PageModel.PageNumber,PageModel.ParameterId, urlHelper);
+            TagBuilder currentItem = CreateTag(PageModel.PageNumber,PageModel.Parameters, urlHelper);
 
             // создаем ссылку на предыдущую страницу, если она есть
             if (PageModel.HasPreviousPage)
             {
-                TagBuilder prevItem = CreateTag(PageModel.PageNumber - 1, PageModel.ParameterId, urlHelper);
+                TagBuilder prevItem = CreateTag(PageModel.PageNumber - 1, PageModel.Parameters, urlHelper);
                 tag.InnerHtml.AppendHtml(prevItem);
             }
 
@@ -43,13 +44,13 @@ namespace AccountingOfVehicles.TagHelpers
             // создаем ссылку на следующую страницу, если она есть
             if (PageModel.HasNextPage)
             {
-                TagBuilder nextItem = CreateTag(PageModel.PageNumber + 1, PageModel.ParameterId, urlHelper);
+                TagBuilder nextItem = CreateTag(PageModel.PageNumber + 1, PageModel.Parameters, urlHelper);
                 tag.InnerHtml.AppendHtml(nextItem);
             }
             output.Content.AppendHtml(tag);
         }
 
-        TagBuilder CreateTag(int pageNumber,int id, IUrlHelper urlHelper)
+        TagBuilder CreateTag(int pageNumber,IParameters parameters, IUrlHelper urlHelper)
         {
             TagBuilder item = new TagBuilder("li");
             TagBuilder link = new TagBuilder("a");
@@ -59,7 +60,7 @@ namespace AccountingOfVehicles.TagHelpers
             }
             else
             {
-                link.Attributes["href"] = urlHelper.Action(PageAction, new { currentParameterID = id, page = pageNumber });
+                link.Attributes["href"] = urlHelper.Action(PageAction, parameters.GetParameters(pageNumber));
             }
             link.InnerHtml.Append(pageNumber.ToString());
             item.InnerHtml.AppendHtml(link);
