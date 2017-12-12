@@ -11,33 +11,44 @@ using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
 using AccountingOfVehicles.Models.Filters;
 using AccountingOfVehicles.Utils;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 namespace AccountingOfVehicles.Controllers
 {
     public class CarsController : Controller
     {
         private UchetContext _db;
+        private IHostingEnvironment _environment;
+        private IConfiguration _iconfiguration;
+        private CarExternalFile _externalFile;
 
-        public CarsController(UchetContext db)
+
+
+        public CarsController(UchetContext db, IHostingEnvironment environment, IConfiguration iconfiguration)
         {
             _db = db;
+            _environment = environment;
+            _iconfiguration = iconfiguration;
+            _externalFile = new CarExternalFile(_environment, _iconfiguration);
         }
 
-        public IActionResult Cars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
+        public async Task<IActionResult> Cars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
             string startRegistrationDate = "", string endRegistrationDate = "", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
 
-            List<String> brandNames = _db.Brands.Select(b => b.BrandName).ToList();
+            List<String> brandNames = await _db.Brands.Select(b => b.BrandName).ToListAsync();
             brandNames.Insert(0, "Все");
 
-            List<String> ownerNames = _db.Owners.Select(b => b.OwnerName).ToList();
+            List<String> ownerNames = await _db.Owners.Select(b => b.OwnerName).ToListAsync();
             ownerNames.Insert(0, "Все");
 
-            List<String> carNumbersOfMotor = _db.Cars.Select(b => b.CarNumberOfMotor).ToList();
+            List<String> carNumbersOfMotor = await _db.Cars.Select(b => b.CarNumberOfMotor).ToListAsync();
             carNumbersOfMotor.Insert(0, "Все");
  
-            List<Car> cars = _db.Cars
+            List<Car> cars =await  _db.Cars
                 .Select(t => new Car
                 {
                     CarID = t.CarID,
@@ -56,7 +67,7 @@ namespace AccountingOfVehicles.Controllers
                     Brand = t.Brand,
                     Owner = t.Owner
                 }).OrderBy(s => s.CarID)
-                .ToList();
+                .ToListAsync();
 
             if (brandName != "Все" && brandName !=null)
             {
@@ -111,18 +122,19 @@ namespace AccountingOfVehicles.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("CarID,BrandID,OwnerID,CarRegistrationNumber," +
+        public async Task<IActionResult> Edit([Bind("CarID,BrandID,OwnerID,CarRegistrationNumber," +
             "CarPhoto,CarNumberOfBody,CarNumberOfMotor,CarNumberOfPassport," +
             "CarReleaseDate,CarRegistrationDate," +
-            "CarLastCheckupDate,CarColor,CarDescription")] Car car)
+            "CarLastCheckupDate,CarColor,CarDescription")] Car car, IFormFile upload)
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    car = await _externalFile.UploadRectorWithPhoto(car, upload);
                     _db.Update(car);
-                     _db.SaveChanges();
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -156,10 +168,10 @@ namespace AccountingOfVehicles.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("CarID,BrandID,OwnerID,CarRegistrationNumber," +
+        public async Task<IActionResult> Create([Bind("CarID,BrandID,OwnerID,CarRegistrationNumber," +
             "CarPhoto,CarNumberOfBody,CarNumberOfMotor,CarNumberOfPassport," +
             "CarReleaseDate,CarRegistrationDate," +
-            "CarLastCheckupDate,CarColor,CarDescription")] Car car)
+            "CarLastCheckupDate,CarColor,CarDescription")] Car car, IFormFile upload)
         {
             if (ModelState.IsValid)
             {
@@ -168,8 +180,9 @@ namespace AccountingOfVehicles.Controllers
                     return View("Message", "Уже существует автомобиль с данным идентификатором!");
 
                 }
+                car = await _externalFile.UploadRectorWithPhoto(car, upload);
                 _db.Add(car);
-                _db.SaveChanges();
+                await  _db.SaveChangesAsync();
                 return RedirectToAction("Cars");
             }
 

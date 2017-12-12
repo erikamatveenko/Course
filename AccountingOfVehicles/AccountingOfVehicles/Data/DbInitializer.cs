@@ -45,7 +45,7 @@ namespace AccountingOfVehicles.Data
             int brandID;
             int ownerID;
             string carRegistrationNumber;
-            int carPhoto;
+            string carPhoto;
             string carNumberOfBody;
             string carNumberOfMotor;
             string carNumberOfPassport;
@@ -80,7 +80,7 @@ namespace AccountingOfVehicles.Data
 
                 brandID = randObj.Next(1, brandsNumber - 1);
                 ownerID = randObj.Next(1, ownersNumber - 1);
-                carPhoto = randObj.Next(1, 500);
+                carPhoto = "";
                 
 
                 db.Cars.Add(new Car
@@ -381,7 +381,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 2,
                 OwnerID = 1,
                 CarRegistrationNumber = "3194 KK-4",
-                CarPhoto = 1,
+                CarPhoto = "/files/photos/1.jpg",
                 CarNumberOfBody = "XTA217230C0222222",
                 CarNumberOfMotor = "F4B - 1.4л/55кВт",
                 CarNumberOfPassport = "EGFV4151V",
@@ -397,7 +397,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 5,
                 OwnerID = 4,
                 CarRegistrationNumber = "3826 AT-2",
-                CarPhoto = 2,
+                CarPhoto = "/files/photos/2.jpg",
                 CarNumberOfBody = "LJ78-0009746",
                 CarNumberOfMotor = "F6F - 1.4л/55кВт",
                 CarNumberOfPassport = "RG22X9GRE",
@@ -413,7 +413,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 8,
                 OwnerID = 1,
                 CarRegistrationNumber = "8864 EH-3",
-                CarPhoto = 3,
+                CarPhoto = "/files/photos/3.jpg",
                 CarNumberOfBody = "AE115-3016544",
                 CarNumberOfMotor = "FUH - 1.4л/55кВт",
                 CarNumberOfPassport = "ERGV415GV",
@@ -429,7 +429,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 9,
                 OwnerID = 5,
                 CarRegistrationNumber = "3181 EE-6",
-                CarPhoto = 4,
+                CarPhoto = "/files/photos/4.jpg",
                 CarNumberOfBody = "EXZ10-0020027",
                 CarNumberOfMotor = "J4B - 1.3л/44кВт",
                 CarNumberOfPassport = "EDBED4DED",
@@ -445,7 +445,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 1,
                 OwnerID = 6,
                 CarRegistrationNumber = "4181 EP-6",
-                CarPhoto = 5,
+                CarPhoto = "/files/photos/5.jpg",
                 CarNumberOfBody = "WF0FXX3BBF5115",
                 CarNumberOfMotor = "J6A - 1.3л/44кВт",
                 CarNumberOfPassport = "5520ERG9Z",
@@ -461,7 +461,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 3,
                 OwnerID = 9,
                 CarRegistrationNumber = "4000 IX-5",
-                CarPhoto = 6,
+                CarPhoto = "/files/photos/6.jpg",
                 CarNumberOfBody = "WBACG82080RL790079",
                 CarNumberOfMotor = "JBD - 1.3л/44кВт",
                 CarNumberOfPassport = "EGVE5241V",
@@ -477,7 +477,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 6,
                 OwnerID = 10,
                 CarRegistrationNumber = "4442 BX-3",
-                CarPhoto = 7,
+                CarPhoto = "/files/photos/7.jpg",
                 CarNumberOfBody = "1BEJ56H9WN28995",
                 CarNumberOfMotor = "NET— 2,0 НС ОНС 77 кВт",
                 CarNumberOfPassport = "ERGVRE5G9",
@@ -493,7 +493,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 4,
                 OwnerID = 7,
                 CarRegistrationNumber = "1990 KO-7",
-                CarPhoto = 8,
+                CarPhoto = "/files/photos/8.jpg",
                 CarNumberOfBody = "NHW203549504",
                 CarNumberOfMotor = "LCS — 1,6 НС ОНС 55 кВт",
                 CarNumberOfPassport = "ERGVSRE96",
@@ -509,7 +509,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 7,
                 OwnerID = 3,
                 CarRegistrationNumber = "0813 BT-3",
-                CarPhoto = 9,
+                CarPhoto = "/files/photos/9.jpg",
                 CarNumberOfBody = "CF513007941",
                 CarNumberOfMotor = "LCT— 1,6 НС ОНС 55 кВт",
                 CarNumberOfPassport = "REGV85518",
@@ -525,7 +525,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 4,
                 OwnerID = 6,
                 CarRegistrationNumber = "0996 AX-2",
-                CarPhoto = 10,
+                CarPhoto = "/files/photos/10.jpg",
                 CarNumberOfBody = "15BA-01041463",
                 CarNumberOfMotor = "JCT— 1,3 НС ОНС 44 кВт",
                 CarNumberOfPassport = "RFV541R24",
@@ -542,7 +542,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 6,
                 OwnerID = 9,
                 CarRegistrationNumber = "1178 GH-3",
-                CarPhoto = 12,
+                CarPhoto = "/files/photos/11.jpg",
                 CarNumberOfBody = "DFGHB552218GBSR",
                 CarNumberOfMotor = "F4B - 1.4л/55кВт",
                 CarNumberOfPassport = "EGFV4151V",
@@ -558,7 +558,7 @@ namespace AccountingOfVehicles.Data
                 BrandID = 10,
                 OwnerID = 8,
                 CarRegistrationNumber = "5211 PL-4",
-                CarPhoto = 13,
+                CarPhoto = "/files/photos/12.jpg",
                 CarNumberOfBody = "SDGS21547FD5H41",
                 CarNumberOfMotor = "g94 - 1.2л/35кВт",
                 CarNumberOfPassport = "DHED56125",

@@ -38,8 +38,8 @@
         <div class="form-group">
             <label asp-for="CarPhoto" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="CarPhoto" class="form-control" />
-                <span asp-validation-for="CarPhoto" class="text-danger"></span>
+                <img src="@Model.CarPhoto" alt="Фотография отсутствует" class="col-md-2">
+                <input type="file" name="upload" value="Загрузить" />
             </div>
         </div>
 

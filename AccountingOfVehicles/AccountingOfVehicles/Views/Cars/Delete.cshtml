@@ -17,63 +17,68 @@
 <h3>Вы действительно хотите удалить это?</h3>
 <div>
     <h4>Автомобиль</h4>
-    <hr />
-    <table style="margin:20px;">
+    <table>
         <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarID)</td>
-            <td> @Html.DisplayFor(car => car.CarID) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.Brand.BrandName)</td>
-            <td> @Html.DisplayFor(car => car.Brand.BrandName) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.Owner.OwnerName)</td>
-            <td> @Html.DisplayFor(car => car.Owner.OwnerName) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarRegistrationNumber)</td>
-            <td> @Html.DisplayFor(car => car.CarRegistrationNumber) </td>
-        </tr>
-        <tr>
+            <td></td>
             <td class="boldTd"> @Html.DisplayNameFor(car => car.CarPhoto)</td>
-            <td> @Html.DisplayFor(car => car.CarPhoto) </td>
         </tr>
         <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfBody)</td>
-            <td> @Html.DisplayFor(car => car.CarNumberOfBody) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfMotor)</td>
-            <td> @Html.DisplayFor(car => car.CarNumberOfMotor) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfPassport)</tdv>
-            <td> @Html.DisplayFor(car => car.CarNumberOfPassport) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarReleaseDate)</td>
-            <td> @Html.DisplayFor(car => car.CarReleaseDate) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarRegistrationDate)</td>
-            <td> @Html.DisplayFor(car => car.CarRegistrationDate) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarLastCheckupDate)</td>
-            <td> @Html.DisplayFor(car => car.CarLastCheckupDate) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarColor)</td>
-            <td> @Html.DisplayFor(car => car.CarColor) </td>
-        </tr>
-        <tr>
-            <td class="boldTd"> @Html.DisplayNameFor(car => car.CarDescription)</td>
-            <td> @Html.DisplayFor(car => car.CarDescription) </td>
-        </tr>
+            <td style="vertical-align:top;">
+                <table style="margin:20px;">
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarID)</td>
+                        <td> @Html.DisplayFor(car => car.CarID) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.Brand.BrandName)</td>
+                        <td> @Html.DisplayFor(car => car.Brand.BrandName) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.Owner.OwnerName)</td>
+                        <td> @Html.DisplayFor(car => car.Owner.OwnerName) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarRegistrationNumber)</td>
+                        <td> @Html.DisplayFor(car => car.CarRegistrationNumber) </td>
+                    </tr>
 
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfBody)</td>
+                        <td> @Html.DisplayFor(car => car.CarNumberOfBody) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfMotor)</td>
+                        <td> @Html.DisplayFor(car => car.CarNumberOfMotor) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarNumberOfPassport)</tdv>
+                        <td> @Html.DisplayFor(car => car.CarNumberOfPassport) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarReleaseDate)</td>
+                        <td> @Html.DisplayFor(car => car.CarReleaseDate) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarRegistrationDate)</td>
+                        <td> @Html.DisplayFor(car => car.CarRegistrationDate) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarLastCheckupDate)</td>
+                        <td> @Html.DisplayFor(car => car.CarLastCheckupDate) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarColor)</td>
+                        <td> @Html.DisplayFor(car => car.CarColor) </td>
+                    </tr>
+                    <tr>
+                        <td class="boldTd"> @Html.DisplayNameFor(car => car.CarDescription)</td>
+                        <td> @Html.DisplayFor(car => car.CarDescription) </td>
+                    </tr>
+                </table>
+            </td>
+            <td> <img src="@Model.CarPhoto" alt="Фото отсутсвует" width="600" height="400"/> </td>
+        </tr>
     </table>
-
     <form asp-action="Delete">
         <div class="form-actions no-color">
             <input type="hidden" asp-for="CarID" />

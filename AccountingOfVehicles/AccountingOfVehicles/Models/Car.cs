@@ -19,7 +19,7 @@ namespace AccountingOfVehicles.Models
         [Display(Name = "Регистрационный номер")]
         public string CarRegistrationNumber { get; set; }
         [Display(Name = "Фото")]
-        public int? CarPhoto { get; set; }
+        public string CarPhoto { get; set; }
         [Display(Name = "Номер кузова")]
         public string CarNumberOfBody { get; set; }
         [Display(Name = "Номер двигателя")]
