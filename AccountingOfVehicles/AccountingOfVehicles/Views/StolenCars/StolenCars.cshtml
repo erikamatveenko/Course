@@ -10,6 +10,9 @@
     th, td {
         padding-right: 15px;
     }
+    label {
+        margin: 10px;
+    }
 </style>
 
 <br />
@@ -17,19 +20,66 @@
 {
 <form class="form-inline" method="get">
     <label>Выберите марку автомобиля:</label>
-    <select name="currentParameterID" class="form-control">
-        @foreach (BrandNameFilter br in Model.BrandNames)
+    <select name="brandName" class="form-control">
+        @foreach (String br in Model.StolenCarsFilters.BrandNames)
         {
-            if (br.Id == Model.CurrentBrandName.Id)
+            if (br == Model.StolenCarsFilters.brandName)
             {
-        <option selected value="@br.Id">@br.BrandName</option>
-                }
-                else
-                {
-        <option value="@br.Id">@br.BrandName</option>}
+                <option selected value="@br">@br</option>
             }
+            else
+            {
+                <option value="@br">@br</option>}
+        }
     </select>
-    <input type="submit" value="Показать" class="btn btn-default" />
+
+    <label>Выберите владельца:</label>
+    <select name="ownerName" class="form-control">
+        @foreach (String br in Model.StolenCarsFilters.OwnerNames)
+        {
+            if (br == Model.StolenCarsFilters.ownerName)
+            {
+                <option selected value="@br">@br</option>
+            }
+            else
+            {
+                <option value="@br">@br</option>}
+        }
+    </select>
+    <br />
+    <label>Выберите номер двигателя:</label>
+    <select name="carNumberOfMotor" class="form-control">
+        @foreach (String br in Model.StolenCarsFilters.CarNumbersOfMotor)
+        {
+            if (br == Model.StolenCarsFilters.carNumberOfMotor)
+            {
+                <option selected value="@br">@br</option>
+            }
+            else
+            {
+                <option value="@br">@br</option>}
+        }
+    </select>
+
+    <label>Дата регистрации:  с</label>
+    <input type="date" name="startRegistrationDate" value="@Model.StolenCarsFilters.startRegistrationDate" class="form-control" />
+    <label>по</label>
+    <input type="date" name="endRegistrationDate" value="@Model.StolenCarsFilters.endRegistrationDate" class="form-control" />
+    <br />
+    <label>Машина в розыске?</label>
+    @{
+        if (Model.StolenCarsFilters.isFind == "on")
+        {
+            <input type="checkbox" checked name="isFind" class="checkbox" />
+        }
+        else
+        {
+            <input type="checkbox" name="isFind" class="checkbox" />
+        }
+    }
+    <br />
+    <div style="width:100px;margin:auto;"><input type="submit" value="Показать" class="btn btn-default" /></div>
+
 </form>
 }
 

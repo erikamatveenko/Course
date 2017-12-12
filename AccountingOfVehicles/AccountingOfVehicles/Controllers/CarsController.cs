@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
 using AccountingOfVehicles.Models.Filters;
+using AccountingOfVehicles.Utils;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -22,7 +23,8 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult Cars( string brandName = "Все", string ownerName = "Все", int pageNumber = 1)
+        public IActionResult Cars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
+            string startRegistrationDate = "", string endRegistrationDate = "", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
 
@@ -32,6 +34,9 @@ namespace AccountingOfVehicles.Controllers
             List<String> ownerNames = _db.Owners.Select(b => b.OwnerName).ToList();
             ownerNames.Insert(0, "Все");
 
+            List<String> carNumbersOfMotor = _db.Cars.Select(b => b.CarNumberOfMotor).ToList();
+            carNumbersOfMotor.Insert(0, "Все");
+ 
             List<Car> cars = _db.Cars
                 .Select(t => new Car
                 {
@@ -61,7 +66,18 @@ namespace AccountingOfVehicles.Controllers
             {
                 cars = cars.Where(c => c.Owner.OwnerName == ownerName).ToList();
             }
-            CarsFilter carsFilter = new CarsFilter { brandName = brandName, ownerName = ownerName, BrandNames = brandNames, OwnerNames = ownerNames };
+            if(carNumberOfMotor!= "Все" && carNumberOfMotor != null)
+            {
+                cars = cars.Where(c => c.CarNumberOfMotor == carNumberOfMotor).ToList();
+            }
+            if(startRegistrationDate != null && endRegistrationDate != null && startRegistrationDate != "" && endRegistrationDate != "")
+            {
+               cars = cars.Where(c => (c.CarRegistrationDate>=DateTimeConverter.getFromString(startRegistrationDate)  &&
+                    c.CarRegistrationDate <= DateTimeConverter.getFromString(endRegistrationDate))).ToList();
+            }
+
+            CarsFilter carsFilter = new CarsFilter { brandName = brandName, ownerName = ownerName, BrandNames = brandNames,
+                OwnerNames = ownerNames,carNumberOfMotor= carNumberOfMotor,CarNumbersOfMotor=carNumbersOfMotor, startRegistrationDate= startRegistrationDate,endRegistrationDate= endRegistrationDate };
             PageViewModel pageViewModel = new PageViewModel(cars.Count, pageNumber, pageSize, carsFilter );
 
             CarViewModel carViewModel = new CarViewModel {PageViewModel=pageViewModel,

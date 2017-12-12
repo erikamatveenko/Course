@@ -22,13 +22,12 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult Employees(int? currentParameterID, int page = 1)
+        public IActionResult Employees(string titleName = "Все", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currTitleID = currentParameterID ?? 0;
 
-            List<TitleNameFilter> titleNames = _db.Titles.Select(b => new TitleNameFilter { TitleName = b.TitleName, Id = b.TitleID }).ToList();
-            titleNames.Insert(0, new TitleNameFilter { TitleName = "Все", Id = 0 });
+            List<string> titleNames = _db.Titles.Select(b => b.TitleName).ToList();
+            titleNames.Insert(0, "Все");
 
             List<Employee> employees = _db.Employees
                 .Select(t => new Employee
@@ -40,15 +39,19 @@ namespace AccountingOfVehicles.Controllers
                     Title = t.Title
                 }).OrderBy(s => s.EmployeeID)
                 .ToList();
-            TitleNameFilter tnf = titleNames.Where(c => c.Id == currTitleID).ToList()[0];
-            if (currTitleID > 0)
+
+            if (titleName != "Все")
             {
-                employees = employees.Where(c => c.Title.TitleName == tnf.TitleName).ToList();
+                employees = employees.Where(c => c.Title.TitleName == titleName).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(employees.Count, page, pageSize, new CarsFilter());
+            TitlesFilter titlesFilter = new TitlesFilter { titleName = titleName, TitleNames = titleNames };
 
-            EmployeeViewModel employeeViewModel = new EmployeeViewModel { PageViewModel = pageViewModel, Employees = employees.Skip((page - 1) * pageSize).Take(pageSize).ToList(), TitleNames = titleNames, CurrentTitleName = tnf };
+
+            PageViewModel pageViewModel = new PageViewModel(employees.Count, pageNumber, pageSize, titlesFilter);
+
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel { PageViewModel = pageViewModel,
+                Employees = employees.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(), TitlesFilters = titlesFilter };
             return View(employeeViewModel);
         }
 

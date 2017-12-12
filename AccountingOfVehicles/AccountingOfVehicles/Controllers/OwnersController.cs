@@ -22,25 +22,38 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult Owners(int? currentParameterID, int page = 1)
+        public IActionResult Owners(string brandName = "Все", string isNoDriver = "of", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currOwnerID = currentParameterID ?? 0;
-            _db.Owners.Select(c => new Owner());
-            List<OwnerBirthDateFilter> ownerBirthDates = _db.Owners.Select(b => new OwnerBirthDateFilter { OwnerBirthDate = b.OwnerBirthDate  , Id = b.OwnerID }).ToList();
-            ownerBirthDates.Insert(0, new OwnerBirthDateFilter { OwnerBirthDate = DateTime.Now, Id = 0 });
 
+            List<String> brandNames = _db.Brands.Select(b => b.BrandName).ToList();
+            brandNames.Insert(0, "Все");
 
-            var owners = _db.Owners.OrderBy(s => s.OwnerID).ToList();
-            OwnerBirthDateFilter obdf = ownerBirthDates.Where(c => c.Id == currOwnerID).ToList()[0];
-            if (currOwnerID > 0)
+            List<Owner> owners = _db.Owners.OrderBy(s => s.OwnerID).ToList();
+
+            if (brandName != "Все" && brandName != null)
             {
-                owners = owners.Where(c => c.OwnerBirthDate == obdf.OwnerBirthDate).ToList();
+                owners = _db.Cars.Where(c => c.Brand.BrandName == brandName).Select(b => b.Owner).OrderBy(s => s.OwnerID).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(owners.Count, page, pageSize, new CarsFilter());
+            if (isNoDriver == "on" && isNoDriver != null)
+            {
+                owners = owners.Where(c => c.OwnerNumberOfDriverLicense == null).ToList();
+            }
 
-            OwnerViewModel ownerViewModel = new OwnerViewModel { PageViewModel = pageViewModel, Owners = owners.Skip((page - 1) * pageSize).Take(pageSize).ToList(), OwnerBirthDates = ownerBirthDates, CurrentOwnerBirthDate = obdf };
+            OwnersFilter ownersFilter = new OwnersFilter
+            {
+                brandName = brandName,         
+                BrandNames = brandNames,
+                isNoDriver = isNoDriver
+            };
+
+
+            PageViewModel pageViewModel = new PageViewModel(owners.Count, pageNumber, pageSize, ownersFilter);
+
+            OwnerViewModel ownerViewModel = new OwnerViewModel { PageViewModel = pageViewModel,
+                Owners = owners.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(),OwnersFilters = ownersFilter
+            };
             return View(ownerViewModel);
         }
 

@@ -17,16 +17,16 @@
 {
     <form class="form-inline" method="get">
         <label>Выберите звание сотрудника:</label>
-        <select name="currentParameterID" class="form-control">
-            @foreach (TitleNameFilter tn in Model.TitleNames)
+        <select name="titleName" class="form-control">
+            @foreach (String taf in Model.TitlesFilters.TitleNames)
             {
-                if (tn.Id == Model.CurrentTitleName.Id)
+                if (taf == Model.TitlesFilters.titleName)
                 {
-                    <option selected value="@tn.Id">@tn.TitleName</option>
+                    <option selected value="@taf">@taf</option>
                 }
                 else
                 {
-                    <option value="@tn.Id">@tn.TitleName</option>}
+                    <option value="@taf">@taf</option>}
             }
         </select>
         <input type="submit" value="Показать" class="btn btn-default" />

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using AccountingOfVehicles.ViewModels;
 using AccountingOfVehicles.Data;
 using AccountingOfVehicles.Models.Filters;
+using AccountingOfVehicles.Utils;
 
 namespace AccountingOfVehicles.Controllers
 {
@@ -22,13 +23,19 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult StolenCars(int? currentParameterID, int page = 1)
+        public IActionResult StolenCars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
+            string startRegistrationDate = "", string endRegistrationDate = "", string isFind = "of", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currBrandID = currentParameterID ?? 0;
 
-            List<BrandNameFilter> brandNames = _db.Brands.Select(b => new BrandNameFilter { BrandName = b.BrandName, Id = b.BrandID }).ToList();
-            brandNames.Insert(0, new BrandNameFilter { BrandName = "Все", Id = 0 });
+            List<String> brandNames = _db.Brands.Select(b => b.BrandName).ToList();
+            brandNames.Insert(0, "Все");
+
+            List<String> ownerNames = _db.Owners.Select(b => b.OwnerName).ToList();
+            ownerNames.Insert(0, "Все");
+
+            List<String> carNumbersOfMotor = _db.Cars.Select(b => b.CarNumberOfMotor).ToList();
+            carNumbersOfMotor.Insert(0, "Все");
 
 
             List<StolenCar> stolenCars = _db.StolenCars.Join(_db.Cars.Select(t => new Car
@@ -67,15 +74,47 @@ namespace AccountingOfVehicles.Controllers
                }).OrderBy(s => s.StolenCarID).ToList();
 
 
-            BrandNameFilter brnf = brandNames.Where(c => c.Id == currBrandID).ToList()[0];
-            if (currBrandID > 0)
+            if (brandName != "Все" && brandName != null)
             {
-                stolenCars = stolenCars.Where(c => c.Car.BrandID == currBrandID).ToList();
+                stolenCars = stolenCars.Where(c => c.Car.Brand.BrandName == brandName).ToList();
+            }
+            if (ownerName != "Все" && ownerName != null)
+            {
+                stolenCars = stolenCars.Where(c => c.Car.Owner.OwnerName == ownerName).ToList();
+            }
+            if (carNumberOfMotor != "Все" && carNumberOfMotor != null)
+            {
+                stolenCars = stolenCars.Where(c => c.Car.CarNumberOfMotor == carNumberOfMotor).ToList();
+            }
+            if (startRegistrationDate != null && endRegistrationDate != null && startRegistrationDate != "" && endRegistrationDate != "")
+            {
+                stolenCars = stolenCars.Where(c => (c.StolenCarStealingDate >= DateTimeConverter.getFromString(startRegistrationDate) &&
+                     c.StolenCarStealingDate <= DateTimeConverter.getFromString(endRegistrationDate))).ToList();
+            }
+            if (isFind == "on" && isFind != null)
+            {
+                stolenCars = stolenCars.Where(c => c.StolenCarFind == "Не найдена").ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(stolenCars.Count, page, pageSize, new CarsFilter());
+            StolenCarsFilter carsFilter = new StolenCarsFilter
+            {
+                brandName = brandName,
+                ownerName = ownerName,
+                BrandNames = brandNames,
+                OwnerNames = ownerNames,
+                carNumberOfMotor = carNumberOfMotor,
+                CarNumbersOfMotor = carNumbersOfMotor,
+                startRegistrationDate = startRegistrationDate,
+                endRegistrationDate = endRegistrationDate,
+                isFind = isFind
+            };
 
-            StolenCarViewModel stolenCarViewModel = new StolenCarViewModel { PageViewModel = pageViewModel, StolenCars = stolenCars.Skip((page - 1) * pageSize).Take(pageSize).ToList(), BrandNames = brandNames, CurrentBrandName = brnf };
+            PageViewModel pageViewModel = new PageViewModel(stolenCars.Count, pageNumber, pageSize, carsFilter);
+
+            StolenCarViewModel stolenCarViewModel = new StolenCarViewModel { PageViewModel = pageViewModel,
+                StolenCars = stolenCars.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(),
+                StolenCarsFilters = carsFilter
+            };
             return View(stolenCarViewModel);
         }
 

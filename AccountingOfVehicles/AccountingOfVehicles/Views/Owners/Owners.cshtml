@@ -7,23 +7,37 @@
     th, td {
         padding-right: 15px;
     }
+    label{
+        margin:10px;
+    }
 </style>
 
 <br />
 <form class="form-inline" method="get">
-    <label>Выберите дату рождения:</label>
-    <select name="currentParameterID" class="form-control">
-        @foreach (OwnerBirthDateFilter own in Model.OwnerBirthDates)
+    <label>Выберите марку автомобиля:</label>
+    <select name="brandName" class="form-control">
+        @foreach (String own in Model.OwnersFilters.BrandNames)
         {
-            if (own.Id == Model.CurrentOwnerBirthDate.Id)
+            if (own == Model.OwnersFilters.brandName)
             {
-                <option selected value="@own.Id">@own.OwnerBirthDate</option>
+                <option selected value="@own">@own</option>
             }
             else
             {
-                <option value="@own.Id">@own.OwnerBirthDate</option>}
+                <option value="@own">@own</option>}
         }
     </select>
+    <label>Нет водительского удостоверения?</label>
+    @{
+        if (Model.OwnersFilters.isNoDriver == "on")
+        {
+            <input type="checkbox" checked name="isNoDriver" class="checkbox" />
+        }
+        else
+        {
+            <input type="checkbox" name="isNoDriver" class="checkbox" />
+        }
+    }
     <input type="submit" value="Показать" class="btn btn-default" />
 </form>
 
@@ -44,7 +58,7 @@
             <td>@owner.OwnerID</td>
             <td>@owner.OwnerName</td>
             <td>@owner.OwnerAddress</td>           
-            <td style="padding-right:25px">@owner.OwnerBirthDate.Value.Day-@owner.OwnerBirthDate.Value.Month-@owner.OwnerBirthDate.Value.Year</td>
+            <td style="padding-right:25px">@owner.OwnerBirthDate</td>
             <td style="padding-right:10px"><a href="~/Owners/Edit/@owner.OwnerID">Изменить</a></td>
             <td style="padding-right:10px"><a href="~/Owners/Delete/@owner.OwnerID">Удалить</a></td>
             <td style="padding-right:10px"><a href="~/Owners/More/@owner.OwnerID">Подробнее</a></td>

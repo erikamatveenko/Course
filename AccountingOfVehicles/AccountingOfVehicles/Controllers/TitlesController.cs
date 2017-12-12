@@ -22,25 +22,26 @@ namespace AccountingOfVehicles.Controllers
             _db = db;
         }
 
-        public IActionResult Titles(int? currentParameterID, int page = 1)
+        public IActionResult Titles(string titleName = "Все", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
-            int currTitleID = currentParameterID ?? 0;
 
-            List<TitleAllowanceFilter> titleAllowances = _db.Titles.Select(b => new TitleAllowanceFilter { TitleAllowance = b.TitleAllowance.ToString(), Id = b.TitleID }).ToList();
-            titleAllowances.Insert(0, new TitleAllowanceFilter { TitleAllowance = "Все", Id = 0 });
+            List<string> titleNames = _db.Titles.Select(b => b.TitleName).ToList();
+            titleNames.Insert(0, "Все");
 
             var titles = _db.Titles.OrderBy(s => s.TitleID).ToList();
 
-            TitleAllowanceFilter taf = titleAllowances.Where(c => c.Id == currTitleID).ToList()[0];
-            if (currTitleID > 0)
+            if (titleName != "Все")
             {
-                titles = titles.Where(c => c.TitleAllowance.ToString() == taf.TitleAllowance).ToList();
+                titles = titles.Where(c => c.TitleName == titleName).ToList();
             }
 
-            PageViewModel pageViewModel = new PageViewModel(titles.Count, page, pageSize, new CarsFilter());
+            TitlesFilter titlesFilter = new TitlesFilter { titleName = titleName, TitleNames = titleNames };
 
-            TitleViewModel titleViewModel = new TitleViewModel { PageViewModel = pageViewModel, Titles = titles.Skip((page - 1) * pageSize).Take(pageSize).ToList(), TitleAllowances = titleAllowances, CurrentTitleAllowance = taf };
+            PageViewModel pageViewModel = new PageViewModel(titles.Count, pageNumber, pageSize, titlesFilter);
+
+            TitleViewModel titleViewModel = new TitleViewModel { PageViewModel = pageViewModel,
+                Titles = titles.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList(), TitlesFilters = titlesFilter };
             return View(titleViewModel);
         }
 
