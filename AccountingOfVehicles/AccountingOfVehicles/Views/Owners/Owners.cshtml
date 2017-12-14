@@ -26,9 +26,8 @@
             {
                 <option value="@own">@own</option>}
         }
-    </select>
-    <label>Нет водительского удостоверения?</label>
-    @{
+    </select>&nbsp;&nbsp;&nbsp;
+    <label>@{
         if (Model.OwnersFilters.isNoDriver == "on")
         {
             <input type="checkbox" checked name="isNoDriver" class="checkbox" />
@@ -38,6 +37,7 @@
             <input type="checkbox" name="isNoDriver" class="checkbox" />
         }
     }
+    Нет водительского удостоверения</label>&nbsp;&nbsp;
     <input type="submit" value="Показать" class="btn btn-default" />
 </form>
 

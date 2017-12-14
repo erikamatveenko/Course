@@ -65,8 +65,8 @@
     <input type="date" name="startRegistrationDate" value="@Model.CarsFilters.startRegistrationDate" class="form-control" />
     <label>по</label>
     <input type="date" name="endRegistrationDate" value="@Model.CarsFilters.endRegistrationDate" class="form-control" />
-    <br /><br />
-    <div style="width:100px;margin:auto;"><input type="submit" value="Показать" class="btn btn-default" /></div>
+    
+    <div style="width:100px;padding:10px; padding-left:30px;margin:20px;"><input type="submit" value="Показать" class="btn btn-default" /></div>
    
 </form>
 
@@ -93,20 +93,17 @@
             <td>@car.Brand.BrandName</td>
             <td>@car.Owner.OwnerName</td>
             <td style="padding-right:25px">@car.CarRegistrationNumber</td>
-            @if (SignInManager.IsSignedIn(User))
-            {
+         
                 <td style="padding-right:10px"><a href="~/Cars/Edit/@car.CarID">Изменить</a></td>
                 <td style="padding-right:10px"><a href="~/Cars/Delete/@car.CarID">Удалить</a></td>
                 <td style="padding-right:10px"><a href="~/Cars/More/@car.CarID">Подробнее</a></td>
-            }
+            
         </tr>
     }
 
     <tr>
-        @if (SignInManager.IsSignedIn(User))
-        {
             <td style="padding:10px; padding-left:30px"><a asp-action="Create" class="btn btn-primary">Добавить</a></td>
-        }
+        
     </tr>
 </table>
 

@@ -249,7 +249,7 @@ namespace AccountingOfVehicles.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(CarsController.Cars), "Cars");
+            return RedirectToAction(nameof(CarsController.Index), "Cars");
         }
 
         [HttpPost]
@@ -338,7 +338,7 @@ namespace AccountingOfVehicles.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(CarsController.Cars), "Cars");
+                return RedirectToAction(nameof(CarsController.Index), "Cars");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -458,7 +458,7 @@ namespace AccountingOfVehicles.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(CarsController.Cars), "Cars");
+                return RedirectToAction(nameof(CarsController.Index), "Cars");
             }
         }
 

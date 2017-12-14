@@ -15,7 +15,7 @@ namespace AccountingOfVehicles.Data
 
             int brandsNumber = 10000;
             int ownersNumber = 10000;
-            int carsNumber = 2000;
+            int carsNumber = 300;
             int employeesNumber = 100;
             int stolenCarsNumber = 200;
             int titlesNumber = 10000;
@@ -952,7 +952,7 @@ namespace AccountingOfVehicles.Data
                 StolenCarStatementDate = new DateTime(1995, 09, 18),
                 StolenCarInsuranceType = "ОСГО",
                 StolenCarCondition = "Место угона: ул. Калинина",
-                StolenCarFind = "",
+                StolenCarFind = "Не найдено",
                 StolenCarFindDate = new DateTime(1, 1, 1)
             });
 
@@ -999,7 +999,7 @@ namespace AccountingOfVehicles.Data
                 StolenCarStatementDate = new DateTime(2016, 12, 06),
                 StolenCarInsuranceType = "Зеленая карта",
                 StolenCarCondition = "Место угона: ул. Гомельская",
-                StolenCarFind = "",
+                StolenCarFind = "Не найдено",
                 StolenCarFindDate = new DateTime(1,1,1)
             });
 

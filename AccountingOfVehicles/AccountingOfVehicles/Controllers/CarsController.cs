@@ -34,21 +34,27 @@ namespace AccountingOfVehicles.Controllers
             _externalFile = new CarExternalFile(_environment, _iconfiguration);
         }
 
-        public async Task<IActionResult> Cars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
+        // GET: Cars/Edit/5
+        public IActionResult Index(int? id)
+        {         
+            return View();
+        }
+
+        public IActionResult Cars(string brandName = "Все", string ownerName = "Все", string carNumberOfMotor = "Все",
             string startRegistrationDate = "", string endRegistrationDate = "", int pageNumber = 1)
         {
             int pageSize = 10;   // количество элементов на странице
 
-            List<String> brandNames = await _db.Brands.Select(b => b.BrandName).ToListAsync();
+            List<String> brandNames = _db.Brands.Select(b => b.BrandName).ToList();
             brandNames.Insert(0, "Все");
 
-            List<String> ownerNames = await _db.Owners.Select(b => b.OwnerName).ToListAsync();
+            List<String> ownerNames = _db.Owners.Select(b => b.OwnerName).ToList();
             ownerNames.Insert(0, "Все");
 
-            List<String> carNumbersOfMotor = await _db.Cars.Select(b => b.CarNumberOfMotor).ToListAsync();
+            List<String> carNumbersOfMotor = _db.Cars.Select(b => b.CarNumberOfMotor).ToList();
             carNumbersOfMotor.Insert(0, "Все");
  
-            List<Car> cars =await  _db.Cars
+            List<Car> cars = _db.Cars
                 .Select(t => new Car
                 {
                     CarID = t.CarID,
@@ -67,7 +73,7 @@ namespace AccountingOfVehicles.Controllers
                     Brand = t.Brand,
                     Owner = t.Owner
                 }).OrderBy(s => s.CarID)
-                .ToListAsync();
+                .ToList();
 
             if (brandName != "Все" && brandName !=null)
             {

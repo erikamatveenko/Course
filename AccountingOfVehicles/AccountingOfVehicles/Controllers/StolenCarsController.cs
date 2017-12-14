@@ -93,7 +93,7 @@ namespace AccountingOfVehicles.Controllers
             }
             if (isFind == "on" && isFind != null)
             {
-                stolenCars = stolenCars.Where(c => c.StolenCarFind == "Не найдена").ToList();
+                stolenCars = stolenCars.Where(c => c.StolenCarFind == "Не найдено").ToList();
             }
 
             StolenCarsFilter carsFilter = new StolenCarsFilter

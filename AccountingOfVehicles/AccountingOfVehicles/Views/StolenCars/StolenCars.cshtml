@@ -32,7 +32,6 @@
                 <option value="@br">@br</option>}
         }
     </select>
-
     <label>Выберите владельца:</label>
     <select name="ownerName" class="form-control">
         @foreach (String br in Model.StolenCarsFilters.OwnerNames)
@@ -60,26 +59,26 @@
                 <option value="@br">@br</option>}
         }
     </select>
-
-    <label>Дата регистрации:  с</label>
+    <label>Дата угона:  с</label>
     <input type="date" name="startRegistrationDate" value="@Model.StolenCarsFilters.startRegistrationDate" class="form-control" />
     <label>по</label>
     <input type="date" name="endRegistrationDate" value="@Model.StolenCarsFilters.endRegistrationDate" class="form-control" />
     <br />
-    <label>Машина в розыске?</label>
-    @{
+    <label>
+        @{
         if (Model.StolenCarsFilters.isFind == "on")
         {
             <input type="checkbox" checked name="isFind" class="checkbox" />
-        }
-        else
-        {
-            <input type="checkbox" name="isFind" class="checkbox" />
-        }
     }
+    else
+    {
+        <input type="checkbox" name="isFind" class="checkbox" />
+}
+        }
+        Автомобиль в розыске
+    </label>
     <br />
-    <div style="width:100px;margin:auto;"><input type="submit" value="Показать" class="btn btn-default" /></div>
-
+    <div style="width:100px;padding:10px; padding-left:30px;"><input type="submit" value="Показать" class="btn btn-default" /></div>
 </form>
 }
 

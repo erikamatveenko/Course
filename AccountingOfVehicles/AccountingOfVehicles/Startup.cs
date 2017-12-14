@@ -81,7 +81,7 @@ namespace AccountingOfVehicles
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Cars}/{action=Cars}/{id?}");
+                    template: "{controller=Cars}/{action=Index}/{id?}");
             });
         }
     }
